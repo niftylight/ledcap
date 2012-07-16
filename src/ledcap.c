@@ -323,7 +323,7 @@ int main(int argc, char *argv[])
         
 	/* initialize exit handlers */
 	int signals[] = { SIGHUP, SIGINT, SIGQUIT, SIGABRT };
-	int i;
+	unsigned int i;
 	for(i=0; i<sizeof(signals)/sizeof(int); i++)
 	{
 		if(signal(signals[i], _exit_signal_handler) == SIG_ERR)

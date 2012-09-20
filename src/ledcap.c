@@ -363,7 +363,7 @@ int main(int argc, char *argv[])
     
 	/* parse prefs-file */
     	LedPrefsNode *pnode;
-    	if(!(pnode = nft_prefs_node_from_file(prefs, _c.prefsfile)))
+    	if(!(pnode = led_prefs_node_from_file(prefs, _c.prefsfile)))
     	{
 		NFT_LOG(L_ERROR, "Failed to open configfile \"%s\"", 
 		        		_c.prefsfile);
@@ -374,12 +374,12 @@ int main(int argc, char *argv[])
     	if(!(setup = led_prefs_setup_from_node(prefs, pnode)))
     	{
 		NFT_LOG(L_ERROR, "No valid setup found in preferences file.");
-		nft_prefs_node_free(pnode);
+		led_prefs_node_free(pnode);
 		goto _m_exit;
 	}
 
     	/* free preferences node */
-    	nft_prefs_node_free(pnode);
+    	led_prefs_node_free(pnode);
 
         
                     

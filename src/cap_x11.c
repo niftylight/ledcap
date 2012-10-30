@@ -183,26 +183,26 @@ static const char *_format()
         {
                 case 8:
                 {
-                        res = "ARGB u8";
-                        goto _f_exit;
+                        res = "ARGB (u8)";
+                        break;
                 }
 
                 case 16:
                 {
-                        res = "ARGB u16";
-                        goto _f_exit;
+                        res = "ARGB (u16)";
+                        break;
                 }
 
                 case 32:
                 {
-                        res = "ARGB u32";
-                        goto _f_exit;
+                        res = "ARGB (u32)";
+                        break;
                 }
                         
                 default:
                 {
                         NFT_LOG(L_ERROR, "Invalid bits-per-component: %d", myvi->bits_per_rgb);
-                        goto _f_exit;
+                        return NULL;
                 }
                         
         }

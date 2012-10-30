@@ -344,8 +344,7 @@ int main(int argc, char *argv[])
         /* default config-filename */
         if(!led_prefs_default_filename(_c.prefsfile, sizeof(_c.prefsfile), ".ledcap.xml"))
                 goto _m_exit;
-
-	
+		
         /* parse cmdline-arguments */
         if(!_parse_args(argc, argv))
                 goto _m_exit;
@@ -360,7 +359,7 @@ int main(int argc, char *argv[])
 	/* initialize preferences context */
     	if(!(prefs = led_prefs_init()))
     		return -1;
-    
+				
 	/* parse prefs-file */
     	LedPrefsNode *pnode;
     	if(!(pnode = led_prefs_node_from_file(_c.prefsfile)))

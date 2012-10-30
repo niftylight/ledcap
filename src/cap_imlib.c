@@ -128,7 +128,7 @@ static NftResult _capture(LedFrame *frame, LedFrameCord x, LedFrameCord y)
  */
 static const char *_format()
 {
-        return "ARGB (u8)";
+        return "ARGB u8";
 }
 
 

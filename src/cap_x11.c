@@ -183,19 +183,19 @@ static const char *_format()
         {
                 case 8:
                 {
-                        res = "ARGB (u8)";
+                        res = "ARGB u8";
                         break;
                 }
 
                 case 16:
                 {
-                        res = "ARGB (u16)";
+                        res = "ARGB u16";
                         break;
                 }
 
                 case 32:
                 {
-                        res = "ARGB (u32)";
+                        res = "ARGB u32";
                         break;
                 }
                         

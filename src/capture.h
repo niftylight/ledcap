@@ -1,7 +1,7 @@
 /*
  * ledmag - Display portion of screen on a LED-Setup using libniftyled
  * Copyright (C) 2006-2011 Daniel Hiepler <daniel@niftylight.de>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
  * to deal in the Software without restriction, including without limitation
@@ -49,10 +49,10 @@
 typedef enum
 {
         METHOD_MIN = 0,
-#ifdef HAVE_X        
+#ifdef USE_X
         METHOD_XLIB,
 #endif /* HAVE_X */
-#ifdef HAVE_IMLIB
+#ifdef USE_IMLIB
         METHOD_IMLIB,
 #endif /* HAVE_IMLIB */
         /* insert new method above this line

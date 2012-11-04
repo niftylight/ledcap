@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86"
 
 IUSE="debug imlib X"
 
-RDEPEND="dev-libs/niftyled
+RDEPEND="media-gfx/niftyled
 	imlib? ( media-libs/imlib2 )
 	X? ( x11-libs/libX11 )"
 

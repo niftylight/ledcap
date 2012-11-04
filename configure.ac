@@ -158,7 +158,7 @@ AC_CONFIG_FILES(
 	Makefile
 	src/version.c
 	src/Makefile
-	gentoo/app-misc/ledcap/ledcap-9999.ebuild
+	gentoo/media-gfx/ledcap/ledcap-9999.ebuild
 ])
 AC_OUTPUT
 

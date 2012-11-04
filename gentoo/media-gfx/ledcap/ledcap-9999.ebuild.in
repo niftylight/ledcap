@@ -15,7 +15,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
-IUSE="debug imlib"
+IUSE="debug imlib X"
 
 RDEPEND="dev-libs/niftyled
 	imlib? ( media-libs/imlib2 )

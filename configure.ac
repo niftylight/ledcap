@@ -59,7 +59,7 @@ AC_SUBST(niftyled_LIBS)
 PKG_CHECK_MODULES(X, [x11], [HAVE_X=1], [HAVE_X=0])
 AC_SUBST(X_CFLAGS)
 AC_SUBST(X_LIBS)
-AM_CONDITIONAL([USE_X], [test "$HAVE_X" -eq 1])
+AM_CONDITIONAL([USE_X], [test $HAVE_X -eq 1])
 
 # Test for imlib2
 PKG_CHECK_MODULES(IMLIB, imlib2, [HAVE_IMLIB=1], [HAVE_IMLIB=0])
@@ -123,30 +123,30 @@ AM_CONDITIONAL(DEBUG, test x$debug = xtrue)
 AC_ARG_ENABLE(
 	imlib-capture,
 	AS_HELP_STRING([--enable-imlib-capture], [Enable capturing with imlib]),
-	[ if test x$enableval = xno ; then WANT_IMLIB=false ; else if test "$HAVE_IMLIB" -eq 1 ; then WANT_IMLIB=true ; else AC_MSG_ERROR([imlib capture requested but imlib not found]) ; fi ; fi ],
+	[ if test x$enableval = xno ; then WANT_IMLIB=false ; else if test $HAVE_IMLIB -eq 1 ; then WANT_IMLIB=true ; else AC_MSG_ERROR([imlib capture requested but imlib not found]) ; fi ; fi ],
 	[ WANT_IMLIB=true ])
-AM_CONDITIONAL([USE_IMLIB], [test x$WANT_IMLIB = xtrue && test "$HAVE_IMLIB" -eq 1])
+AM_CONDITIONAL([USE_IMLIB], [test x$WANT_IMLIB = xtrue && test $HAVE_IMLIB -eq 1])
 
 
 # use libX to capture
 AC_ARG_ENABLE(
 	x-capture,
 	AS_HELP_STRING([--enable-x-capture], [Enable capturing with libX11]),
-	[ if test x$enableval = xno ; then WANT_X=false ; else if test "$HAVE_X" -eq 1 ; then WANT_X=true ; else AC_MSG_ERROR([X capture requested but X not found]) ; fi ; fi ],
+	[ if test x$enableval = xno ; then WANT_X=false ; else if test $HAVE_X -eq 1 ; then WANT_X=true ; else AC_MSG_ERROR([X capture requested but X not found]) ; fi ; fi ],
 	[ WANT_X=true ])
-AM_CONDITIONAL([USE_X], [test x$WANT_X = xtrue && test "$HAVE_X" -eq 1])
+AM_CONDITIONAL([USE_X], [test x$WANT_X = xtrue && test $HAVE_X -eq 1])
 
 
 # we need at least one capture mechanism
-if (test "x$WANT_X" = "xfalse" || test "$HAVE_X" -ne 1) &&
-	(test "x$WANT_IMLIB" = "xfalse" || test "$HAVE_IMLIB" -ne 1) ; then
+if (test "x$WANT_X" = "xfalse" || test $HAVE_X -ne 1) &&
+	(test "x$WANT_IMLIB" = "xfalse" || test $HAVE_IMLIB -ne 1) ; then
   AC_MSG_ERROR([No supported capture mechanism found.])
 fi
 
 
 # build string with capture mechanisms to build
-if test x$WANT_IMLIB = xtrue && test "$HAVE_IMLIB" -eq 1 ; then CAPTURE="imlib $CAPTURE" ; fi
-if test x$WANT_X = xtrue && test "$HAVE_X" -eq 1 ; then CAPTURE="X11 $CAPTURE" ; fi
+if test x$WANT_IMLIB = xtrue && test $HAVE_IMLIB -eq 1 ; then CAPTURE="imlib $CAPTURE" ; fi
+if test x$WANT_X = xtrue && test $HAVE_X -eq 1 ; then CAPTURE="X11 $CAPTURE" ; fi
 
 
 # --------------------------------

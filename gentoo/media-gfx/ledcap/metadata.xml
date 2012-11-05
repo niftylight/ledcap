@@ -7,6 +7,8 @@
 </maintainer>
 <use>
   <flag name='debug'>Compile for debugging (also modify CFLAGS and FEATURES)</flag>
+  <flag name='X'>Use libX11 to capture screen</flag>
+  <flag name='imlib'>Use imlib2 to capture screen</flag>
 </use>
 <bugs-to>http://github.com/niftylight/ledcap/issues</bugs-to>
 </pkgmetadata>

@@ -49,10 +49,10 @@
 typedef enum
 {
         METHOD_MIN = 0,
-#ifdef USE_X
+#ifdef HAVE_X
         METHOD_XLIB,
 #endif /* HAVE_X */
-#ifdef USE_IMLIB
+#ifdef HAVE_IMLIB
         METHOD_IMLIB,
 #endif /* HAVE_IMLIB */
         /* insert new method above this line

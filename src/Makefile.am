@@ -29,13 +29,13 @@ ledcap_LDADD = \
 
 if USE_X
 ledcap_SOURCES += cap_x11.c
-ledcap_CFLAGS += $(X_CFLAGS)
+ledcap_CFLAGS += $(X_CFLAGS) -DHAVE_X
 ledcap_LDADD += $(X_LIBS)
 endif
 
 if USE_IMLIB
 ledcap_SOURCES += cap_imlib.c
-ledcap_CFLAGS += $(IMLIB_CFLAGS)
+ledcap_CFLAGS += $(IMLIB_CFLAGS) -DHAVE_IMLIB
 ledcap_LDADD += $(IMLIB_LIBS)
 endif
 

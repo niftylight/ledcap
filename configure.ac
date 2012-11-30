@@ -41,6 +41,7 @@ AC_SUBST([PACKAGE_GIT_VERSION], m4_esyscmd([./version --git]), [git version])
 # --------------------------------
 #    checks for programs
 # --------------------------------
+AC_PROG_CC_STDC
 AM_PROG_CC_C_O
 
 PKG_PROG_PKG_CONFIG([0.14])

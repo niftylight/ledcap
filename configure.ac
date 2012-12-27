@@ -146,7 +146,7 @@ AM_CONDITIONAL([USE_X], [test x$WANT_X = xtrue && test $HAVE_X -eq 1])
 # we need at least one capture mechanism
 if (test "x$WANT_X" = "xfalse" || test $HAVE_X -ne 1) &&
 	(test "x$WANT_IMLIB" = "xfalse" || test $HAVE_IMLIB -ne 1) ; then
-  AC_MSG_ERROR([No supported capture mechanism found.])
+  AC_MSG_ERROR([No supported capture mechanism found. Please install one first. (e.g. libX11 or imlib)])
 fi
 
 

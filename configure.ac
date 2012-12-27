@@ -165,6 +165,7 @@ AC_CONFIG_FILES(
 	src/version.c
 	src/Makefile
 	gentoo/media-gfx/ledcap/ledcap-9999.ebuild
+        debian/control.tmpl
 ])
 AC_OUTPUT
 

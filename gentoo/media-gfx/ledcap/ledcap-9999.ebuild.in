@@ -1,5 +1,6 @@
 # Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI=4
 
@@ -26,9 +27,6 @@ DEPEND="${RDEPEND}
 
 REQUIRED_USE="|| ( X imlib )"
 
-
-
-
 src_prepare()
 {
 	eautoreconf
@@ -39,17 +37,17 @@ src_unpack()
 	git-2_src_unpack
 }
 
-src_configure() 
+src_configure()
 {
 	econf \
-                $(use_enable debug) \
-                $(use_enable imlib imlib-capture) \
-                $(use_enable X x-capture)
-
+	    $(use_enable debug) \
+	    $(use_enable imlib imlib-capture) \
+	    $(use_enable X x-capture)
 }
 
-src_install() {
+src_install()
+{
     emake DESTDIR="${D}" install || die
 
-    dodoc NEWS README COPYING AUTHORS ChangeLog
+    dodoc NEWS README AUTHORS ChangeLog
 }

@@ -67,7 +67,7 @@ static struct
 {
         /** currently selected screen-capture method */
         CaptureMethod method;
-        /** running state (TRUE when running, set to FALSE to break main-loop */
+        /** running state (true when running, set to false to break main-loop */
 	bool running;
 	/** name of config-file */
 	char prefsfile[1024];
@@ -291,7 +291,7 @@ static NftResult _parse_args(int argc, char *argv[])
 void _exit_signal_handler(int signal)
 {
 	NFT_LOG(L_INFO, "Exiting...");
-	_c.running = FALSE;
+	_c.running = false;
 }
 
 
@@ -478,8 +478,8 @@ int main(int argc, char *argv[])
         /* output some useful info */
         NFT_LOG(L_INFO, "Capturing %dx%d pixels at position x/y: %d/%d", _c.width, _c.height, _c.x, _c.y);
 
-        /* loop until _c.running is set to FALSE */
-        _c.running = TRUE;
+        /* loop until _c.running is set to false */
+        _c.running = true;
         while(_c.running)
         {
                 /* capture frame */

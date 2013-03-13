@@ -228,9 +228,9 @@ _f_exit:
 static bool _is_big_endian()
 {
         if(XImageByteOrder(_c.display) == LSBFirst)
-                return TRUE;
+                return true;
         else
-                return FALSE;
+                return false;
 }
 
 /** descriptor of this mechanism */

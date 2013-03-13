@@ -225,14 +225,14 @@ bool capture_is_big_endian()
         if(!METHOD_VALID(_c.method))
         {
                 NFT_LOG(L_ERROR, "Invalid capture-method. This is a bug!");
-                return FALSE;
+                return false;
         }
 
         if(!MECHANISM(_c.method)->is_big_endian)
         {
                 NFT_LOG(L_ERROR, "Mechanism \"%s\" doesn't provide \"is_big_endian\" function. Defaulting to little-endian",
                         MECHANISM(_c.method)->name);
-                return FALSE;
+                return false;
         }
 
         return MECHANISM(_c.method)->is_big_endian();

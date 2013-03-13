@@ -93,7 +93,7 @@ static NftResult _capture(LedFrame *frame, LedFrameCord x, LedFrameCord y)
         Imlib_Image *iimg;
         if(!(iimg = imlib_create_image_from_ximage(image, NULL, 0, 0,
                         led_frame_get_width(frame), led_frame_get_height(frame),
-                        TRUE)))
+                        true)))
         {
                 NFT_LOG(L_ERROR, "Failed to create Imlib_Image from XImage");
                 return NFT_FAILURE;
@@ -138,7 +138,7 @@ static const char *_format()
 static bool _is_big_endian()
 {
         /* we'll always get big-endian data from imlib */
-        return TRUE;
+        return true;
 }
 
 

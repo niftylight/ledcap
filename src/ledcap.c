@@ -303,7 +303,7 @@ void _exit_signal_handler(int signal)
 int main(int argc, char *argv[])
 {
         /** return value of main() */
-        int res = 1;
+        int res = EXIT_FAILURE;
         /* current configuration */
         LedPrefs *prefs = NULL;
 	/* current setup */
@@ -314,7 +314,8 @@ int main(int argc, char *argv[])
 
 
         /* check binary version compatibility */
-        NFT_LED_CHECK_VERSION
+        if(!NFT_LED_CHECK_VERSION)
+		return EXIT_FAILURE;
 
 
         /* set default loglevel to INFO */
@@ -519,7 +520,7 @@ int main(int argc, char *argv[])
 
 
         /* mark success */
-        res = 0;
+        res = EXIT_SUCCESS;
 
 _m_exit:
         /* deinitialize capture mechanism */

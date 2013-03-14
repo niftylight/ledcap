@@ -45,8 +45,8 @@
 #define _VERSION_H
 
 
-const char *	ledcap_version_git();
-const char *	ledcap_version_long();
+const char                     *ledcap_version_git();
+const char                     *ledcap_version_long();
 
 
 

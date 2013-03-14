@@ -58,21 +58,20 @@ static struct
 {
         /** currently used capture method */
         CaptureMethod method;
-}_c;
+} _c;
 
 /** all registered capture-methods */
-static CaptureMechanism *_mechanisms[] =
-{
-#ifdef HAVE_X    
+static CaptureMechanism *_mechanisms[] = {
+#ifdef HAVE_X
         /** standard X11 capture using XGetImage() */
         &XLIB,
 #endif /* HAVE_X */
-        
+
 #ifdef HAVE_IMLIB
         /** use imlib + X11 to capture screen */
         &IMLIB,
 #endif /* HAVE_IMLIB */
-        
+
         /** add descriptor of new mechanism above this line
            don't forget to add CaptureMethod in capture.h */
         NULL,
@@ -90,9 +89,9 @@ static CaptureMechanism *_mechanisms[] =
 void capture_print_mechanisms()
 {
         printf("Supported capture mechanisms:\n\t");
-        
+
         int i;
-        for(i = METHOD_MIN+1; i < METHOD_MAX; i++)
+        for(i = METHOD_MIN + 1; i < METHOD_MAX; i++)
         {
                 printf("%s ", MECHANISM(i)->name);
         }
@@ -117,7 +116,7 @@ const char *capture_method_to_string(CaptureMethod m)
 CaptureMethod capture_method_from_string(const char *name)
 {
         int i;
-        for(i = METHOD_MIN+1; METHOD_VALID(i); i++)
+        for(i = METHOD_MIN + 1; METHOD_VALID(i); i++)
         {
                 if(strcmp(name, MECHANISM(i)->name) == 0)
                         return i;
@@ -130,28 +129,32 @@ CaptureMethod capture_method_from_string(const char *name)
 /**
  * capture a frame
  */
-NftResult capture_frame(LedFrame *f, LedFrameCord x, LedFrameCord y)
+NftResult capture_frame(LedFrame * f, LedFrameCord x, LedFrameCord y)
 {
         if(MECHANISM(_c.method)->capture)
         {
-                NFT_LOG(L_VERBOSE, "Capturing image x: %d, y: %d, %dx%d", 
-                        x, y, led_frame_get_width(f), led_frame_get_height(f));
-                
+                NFT_LOG(L_VERBOSE, "Capturing image x: %d, y: %d, %dx%d",
+                        x, y, led_frame_get_width(f),
+                        led_frame_get_height(f));
+
                 if(!(MECHANISM(_c.method)->capture(f, x, y)))
                 {
-                        NFT_LOG(L_ERROR, "Capture with mechanism \"%s\" failed", MECHANISM(_c.method)->name);
+                        NFT_LOG(L_ERROR,
+                                "Capture with mechanism \"%s\" failed",
+                                MECHANISM(_c.method)->name);
                         return NFT_FAILURE;
                 }
         }
         else
         {
-                NFT_LOG(L_ERROR, "Mechanism \"%s\" has no capture function?!", MECHANISM(_c.method)->name);
+                NFT_LOG(L_ERROR, "Mechanism \"%s\" has no capture function?!",
+                        MECHANISM(_c.method)->name);
                 return NFT_FAILURE;
         }
 
         /* set endianess (flag will be changed when conversion occurs) */
         led_frame_set_big_endian(f, capture_is_big_endian());
-        
+
         return NFT_SUCCESS;
 }
 
@@ -168,21 +171,24 @@ NftResult capture_init(CaptureMethod m)
                 return NFT_FAILURE;
         }
 
-        NFT_LOG(L_VERBOSE, "Initializing capture-method \"%s\"", MECHANISM(m)->name);
-        
+        NFT_LOG(L_VERBOSE, "Initializing capture-method \"%s\"",
+                MECHANISM(m)->name);
+
         /* initialize capture-method */
         if(MECHANISM(m)->init)
         {
                 if(!MECHANISM(m)->init())
                 {
-                       NFT_LOG(L_ERROR, "Initialization of capture-method \"%s\" failed", MECHANISM(m)->name); 
+                        NFT_LOG(L_ERROR,
+                                "Initialization of capture-method \"%s\" failed",
+                                MECHANISM(m)->name);
                         return NFT_FAILURE;
                 }
         }
-        
+
         /* save capture-method */
         _c.method = m;
-        
+
         return NFT_SUCCESS;
 }
 
@@ -193,7 +199,7 @@ void capture_deinit()
         /* validate current method */
         if(!METHOD_VALID(_c.method))
                 return;
-        
+
         /* deinitialize capture-method */
         if(MECHANISM(_c.method)->deinit)
         {
@@ -211,11 +217,12 @@ const char *capture_format()
 
         if(!MECHANISM(_c.method)->format)
         {
-                NFT_LOG(L_ERROR, "Mechanism \"%s\" doesn't provide \"format\" function",
+                NFT_LOG(L_ERROR,
+                        "Mechanism \"%s\" doesn't provide \"format\" function",
                         MECHANISM(_c.method)->name);
                 return NULL;
         }
-        
+
         return MECHANISM(_c.method)->format();
 }
 
@@ -230,11 +237,11 @@ bool capture_is_big_endian()
 
         if(!MECHANISM(_c.method)->is_big_endian)
         {
-                NFT_LOG(L_ERROR, "Mechanism \"%s\" doesn't provide \"is_big_endian\" function. Defaulting to little-endian",
+                NFT_LOG(L_ERROR,
+                        "Mechanism \"%s\" doesn't provide \"is_big_endian\" function. Defaulting to little-endian",
                         MECHANISM(_c.method)->name);
                 return false;
         }
 
         return MECHANISM(_c.method)->is_big_endian();
 }
-

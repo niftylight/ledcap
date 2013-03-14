@@ -55,9 +55,7 @@ typedef enum
 #ifdef HAVE_IMLIB
         METHOD_IMLIB,
 #endif /* HAVE_IMLIB */
-        /* insert new method above this line
-           don't forget to add the descriptor to
-           _mechanisms[] in capture.c */
+        /* insert new method above this line don't forget to add the descriptor to _mechanisms[] in capture.c */
         METHOD_MAX,
 } CaptureMethod;
 
@@ -66,17 +64,17 @@ typedef enum
 typedef struct
 {
         /** name of this mechanism */
-        char name[32];
+        char                            name[32];
         /** initialization function */
-        NftResult (*init)(void);
+                                        NftResult(*init) (void);
         /** deinitalization function */
-        void (*deinit)(void);
+        void                            (*deinit) (void);
         /** get format prefered by mechanism */
-        const char *(*format)(void);
+        const char                     *(*format) (void);
         /** return whether capture mechanism delivers big-endian ordered data */
-        bool (*is_big_endian)(void);
+                                        bool(*is_big_endian) (void);
         /** capture image */
-        NftResult (*capture)(LedFrame *, LedFrameCord, LedFrameCord);
+                                        NftResult(*capture) (LedFrame *, LedFrameCord, LedFrameCord);
 } CaptureMechanism;
 
 /** macro to check if a capture-method is valid */
@@ -84,14 +82,14 @@ typedef struct
 
 
 
-void            capture_print_mechanisms();
-const char *    capture_method_to_string(CaptureMethod m);
-CaptureMethod   capture_method_from_string(const char *name);
-bool            capture_is_big_endian();
-const char *    capture_format();
-NftResult       capture_frame(LedFrame *frame, LedFrameCord x, LedFrameCord y);
-NftResult       capture_init(CaptureMethod m);
-void            capture_deinit();
+void                            capture_print_mechanisms();
+const char                     *capture_method_to_string(CaptureMethod m);
+CaptureMethod                   capture_method_from_string(const char *name);
+bool                            capture_is_big_endian();
+const char                     *capture_format();
+NftResult                       capture_frame(LedFrame * frame, LedFrameCord x, LedFrameCord y);
+NftResult                       capture_init(CaptureMethod m);
+void                            capture_deinit();
 
 
 

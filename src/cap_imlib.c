@@ -55,7 +55,7 @@
 
 
 /** private structure to hold info accros function-calls */
-static struct 
+static struct
 {
         Display *display;
         Visual *visual;
@@ -63,7 +63,7 @@ static struct
         Colormap colormap;
         int depth;
         Window root;
-}_c;
+} _c;
 
 
 
@@ -72,18 +72,19 @@ static struct
 /**
  * capture image at x/y and store in frame
  */
-static NftResult _capture(LedFrame *frame, LedFrameCord x, LedFrameCord y)
+static NftResult _capture(LedFrame * frame, LedFrameCord x, LedFrameCord y)
 {
         if(!frame)
                 NFT_LOG_NULL(NFT_FAILURE);
 
-        
+
         /* get screen-portion from X server */
         XImage *image = NULL;
-        if(!(image = XGetImage(_c.display, _c.root,
-                       x, y,
-                       led_frame_get_width(frame), led_frame_get_height(frame),
-                       AllPlanes, ZPixmap)))
+
+        if(!
+           (image =
+            XGetImage(_c.display, _c.root, x, y, led_frame_get_width(frame),
+                      led_frame_get_height(frame), AllPlanes, ZPixmap)))
         {
                 NFT_LOG(L_ERROR, "Failed to capture XImage");
                 return NFT_FAILURE;
@@ -91,9 +92,13 @@ static NftResult _capture(LedFrame *frame, LedFrameCord x, LedFrameCord y)
 
         /* convert image to 32 bit RGB */
         Imlib_Image *iimg;
-        if(!(iimg = imlib_create_image_from_ximage(image, NULL, 0, 0,
-                        led_frame_get_width(frame), led_frame_get_height(frame),
-                        true)))
+
+        if(!
+           (iimg =
+            imlib_create_image_from_ximage(image, NULL, 0, 0,
+                                           led_frame_get_width(frame),
+                                           led_frame_get_height(frame),
+                                           true)))
         {
                 NFT_LOG(L_ERROR, "Failed to create Imlib_Image from XImage");
                 return NFT_FAILURE;
@@ -101,6 +106,7 @@ static NftResult _capture(LedFrame *frame, LedFrameCord x, LedFrameCord y)
 
         /* get data */
         DATA32 *data;
+
         imlib_context_set_image(iimg);
         if(!(data = imlib_image_get_data_for_reading_only()))
         {
@@ -109,16 +115,16 @@ static NftResult _capture(LedFrame *frame, LedFrameCord x, LedFrameCord y)
         }
 
         /* copy data to our frame */
-        memcpy(led_frame_get_buffer(frame), data, led_frame_get_buffersize(frame));
-        /*if(!led_frame_buffer_convert(frame, data, "RGBA u8", 
-                                     led_frame_get_width(frame)* 
-                                     led_frame_get_height(frame)))
-                return NFT_FAILURE;*/
-        
+        memcpy(led_frame_get_buffer(frame), data,
+               led_frame_get_buffersize(frame));
+        /* if(!led_frame_buffer_convert(frame, data, "RGBA u8",
+         * led_frame_get_width(frame)* led_frame_get_height(frame))) return
+         * NFT_FAILURE; */
+
         /* destroy images */
         imlib_free_image();
         XDestroyImage(image);
-        
+
         return NFT_SUCCESS;
 }
 
@@ -152,12 +158,14 @@ static NftResult _init()
                 NFT_LOG(L_ERROR, "Can't open X display.");
                 return NFT_FAILURE;
         }
-        
+
         _c.screen = ScreenOfDisplay(_c.display, DefaultScreen(_c.display));
 
-        _c.visual = DefaultVisual(_c.display, XScreenNumberOfScreen(_c.screen));
+        _c.visual =
+                DefaultVisual(_c.display, XScreenNumberOfScreen(_c.screen));
         _c.depth = DefaultDepth(_c.display, XScreenNumberOfScreen(_c.screen));
-        _c.colormap = DefaultColormap(_c.display, XScreenNumberOfScreen(_c.screen));
+        _c.colormap =
+                DefaultColormap(_c.display, XScreenNumberOfScreen(_c.screen));
         _c.root = RootWindow(_c.display, XScreenNumberOfScreen(_c.screen));
 
         imlib_context_set_display(_c.display);
@@ -165,7 +173,7 @@ static NftResult _init()
         imlib_context_set_colormap(_c.colormap);
         imlib_context_set_color_modifier(NULL);
         imlib_context_set_operation(IMLIB_OP_COPY);
-        
+
         return NFT_SUCCESS;
 }
 
@@ -182,8 +190,7 @@ static void _deinit()
 
 
 /** descriptor of this mechanism */
-CaptureMechanism IMLIB =
-{
+CaptureMechanism IMLIB = {
         .name = "Imlib2",
         .init = _init,
         .deinit = _deinit,

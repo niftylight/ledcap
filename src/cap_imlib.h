@@ -47,10 +47,9 @@
 
 
 /** declaration of our descriptor */
-CaptureMechanism IMLIB;
+CaptureMechanism                IMLIB;
 
 
 
 
 #endif /** _CAP_IMLIB_H */
-

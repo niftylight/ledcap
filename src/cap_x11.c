@@ -54,20 +54,21 @@
 
 
 /** private structure to hold info accros function-calls */
-static struct {
+static struct
+{
         Display *display;
         int screen;
-}_c;
+} _c;
 
 
 
 
 /** X11 Error handler, displays error message */
-static int _err_handler(Display *d, XErrorEvent *err)
+static int _err_handler(Display * d, XErrorEvent * err)
 {
         /** space for X error message */
         static char _xerr[1024];
-        
+
         XGetErrorText(d, err->error_code, _xerr, sizeof(_xerr));
         return 0;
 }
@@ -76,7 +77,7 @@ static int _err_handler(Display *d, XErrorEvent *err)
 /**
  * capture image
  */
-static NftResult _capture(LedFrame *frame, LedFrameCord x, LedFrameCord y)
+static NftResult _capture(LedFrame * frame, LedFrameCord x, LedFrameCord y)
 {
         if(!frame)
                 NFT_LOG_NULL(NFT_FAILURE);
@@ -85,20 +86,22 @@ static NftResult _capture(LedFrame *frame, LedFrameCord x, LedFrameCord y)
         /* get screen-portion from X server */
         XImage *image = NULL;
         if(!(image = XGetImage(_c.display, RootWindow(_c.display, _c.screen),
-                       x, y,
-                       led_frame_get_width(frame), led_frame_get_height(frame),
-                       AllPlanes, ZPixmap)))
+                               x, y,
+                               led_frame_get_width(frame),
+                               led_frame_get_height(frame), AllPlanes,
+                               ZPixmap)))
         {
                 NFT_LOG(L_ERROR, "XGetImage() failed");
                 return NFT_FAILURE;
         }
 
         /* copy framebuffer */
-        memcpy(led_frame_get_buffer(frame), image->data, led_frame_get_buffersize(frame));
+        memcpy(led_frame_get_buffer(frame), image->data,
+               led_frame_get_buffersize(frame));
 
         /* destroy images */
         XDestroyImage(image);
-        
+
         return NFT_SUCCESS;
 }
 
@@ -117,7 +120,7 @@ static NftResult _init()
 
         /* set X error handler */
         XSetErrorHandler(_err_handler);
-        
+
         return NFT_SUCCESS;
 }
 
@@ -142,9 +145,9 @@ static const char *_format()
 
         /* our result */
         char *res = "error";
-        
+
         /* get XVisualInfo */
-        XVisualInfo vi_proto = { .screen = _c.screen };
+        XVisualInfo vi_proto = {.screen = _c.screen };
         XVisualInfo *vi;
         int nvi = 0;
         vi = XGetVisualInfo(_c.display, VisualScreenMask, &vi_proto, &nvi);
@@ -153,7 +156,7 @@ static const char *_format()
                 NFT_LOG(L_ERROR, "No VisualInfo's returned?!");
                 return NULL;
         }
-        
+
         /* get default visual id */
         VisualID id;
         id = XVisualIDFromVisual(DefaultVisual(_c.display, _c.screen));
@@ -161,7 +164,7 @@ static const char *_format()
         /* get our VisualInfo */
         XVisualInfo *myvi = NULL;
         int i;
-        for(i=0; i<nvi; i++)
+        for(i = 0; i < nvi; i++)
         {
                 if((vi[i].visualid) == id)
                 {
@@ -179,7 +182,7 @@ static const char *_format()
 
 
         /* decide about bits-per-component */
-        switch(myvi->bits_per_rgb)
+        switch (myvi->bits_per_rgb)
         {
                 case 8:
                 {
@@ -198,26 +201,25 @@ static const char *_format()
                         res = "ARGB u32";
                         break;
                 }
-                        
+
                 default:
                 {
-                        NFT_LOG(L_ERROR, "Invalid bits-per-component: %d", myvi->bits_per_rgb);
+                        NFT_LOG(L_ERROR, "Invalid bits-per-component: %d",
+                                myvi->bits_per_rgb);
                         return NULL;
                 }
-                        
+
         }
-        
-        
+
+
 _f_exit:
         NFT_LOG(L_VERBOSE, "Depth: %d Red-mask: 0x%lx Green-mask: "
-                           "0x%lx Blue-mask: 0x%lx Bits per component: %d",
-                               myvi->depth, 
-                               myvi->red_mask, 
-                               myvi->green_mask, 
-                               myvi->blue_mask,
-                               myvi->bits_per_rgb);
+                "0x%lx Blue-mask: 0x%lx Bits per component: %d",
+                myvi->depth,
+                myvi->red_mask,
+                myvi->green_mask, myvi->blue_mask, myvi->bits_per_rgb);
         XFree(vi);
-        
+
         return (const char *) res;
 }
 
@@ -234,8 +236,7 @@ static bool _is_big_endian()
 }
 
 /** descriptor of this mechanism */
-CaptureMechanism XLIB =
-{
+CaptureMechanism XLIB = {
         .name = "Xlib",
         .init = _init,
         .deinit = _deinit,

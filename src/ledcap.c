@@ -88,19 +88,6 @@ static struct
 /******************************************************************************/
 
 
-
-/** print a line with all valid logleves */
-void _print_loglevels()
-{
-        /* print loglevels */
-        printf("Valid loglevels:\n\t");
-        NftLoglevel i;
-        for(i = L_MAX + 1; i < L_MIN - 1; i++)
-                printf("%s ", nft_log_level_to_string(i));
-        printf("\n\n");
-}
-
-
 /** print commandline help */
 static void _print_help(char *name)
 {
@@ -118,8 +105,11 @@ static void _print_help(char *name)
                "\t--loglevel <level>\t-l <level>\tOnly show messages with loglevel <level> (default: info)\n\n",
                PACKAGE_URL, name);
 
-        printf("\n");
-        _print_loglevels();
+        /* print loglevels */
+        printf("\nValid loglevels:\n\t");
+		nft_log_print_loglevels();
+        printf("\n\n");
+		
         capture_print_mechanisms();
 }
 

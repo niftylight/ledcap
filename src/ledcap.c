@@ -114,40 +114,6 @@ static void _print_help(char *name)
 }
 
 
-/** print list of installed plugins + information they provide */
-static void _print_plugin_help()
-{
-
-        /* save current loglevel */
-        NftLoglevel ll_current = nft_log_level_get();
-        nft_log_level_set(L_INFO);
-
-        int i;
-        for(i = 0; i < led_hardware_plugin_total_count(); i++)
-        {
-                const char *name;
-                if(!(name = led_hardware_plugin_get_family_by_n(i)))
-                        continue;
-
-                printf("======================================\n\n");
-
-                LedHardware *h;
-                if(!(h = led_hardware_new("tmp01", name)))
-                        continue;
-
-                printf("\tID Example: %s\n",
-                       led_hardware_plugin_get_id_example(h));
-
-
-                led_hardware_destroy(h);
-
-        }
-
-        /* restore logolevel */
-        nft_log_level_set(ll_current);
-}
-
-
 /** parse commandline arguments */
 static NftResult _parse_args(int argc, char *argv[])
 {
@@ -173,21 +139,21 @@ static NftResult _parse_args(int argc, char *argv[])
 
                 switch (argument)
                 {
-                        /** --help */
+                        /* --help */
                         case 'h':
                         {
                                 _print_help(argv[0]);
                                 return NFT_FAILURE;
                         }
 
-                                /* --plugin-help */
+                        /* --plugin-help */
                         case 'p':
                         {
-                                _print_plugin_help();
+                                led_hardware_plugin_print_all();
                                 return NFT_FAILURE;
                         }
 
-                                /* --mechanism */
+                        /* --mechanism */
                         case 'm':
                         {
                                 _c.method =
@@ -195,7 +161,7 @@ static NftResult _parse_args(int argc, char *argv[])
                                 break;
                         }
 
-                        /** --config */
+                        /* --config */
                         case 'c':
                         {
                                 /* save filename for later */
@@ -204,7 +170,7 @@ static NftResult _parse_args(int argc, char *argv[])
                                 break;
                         }
 
-                        /** --x */
+                        /* --x */
                         case 'x':
                         {
                                 if(sscanf(optarg, "%32d", (int *) &_c.x) != 1)
@@ -217,7 +183,7 @@ static NftResult _parse_args(int argc, char *argv[])
                                 break;
                         }
 
-                        /** --y */
+                        /* --y */
                         case 'y':
                         {
                                 if(sscanf(optarg, "%32d", (int *) &_c.y) != 1)
@@ -230,7 +196,7 @@ static NftResult _parse_args(int argc, char *argv[])
                                 break;
                         }
 
-                        /** --dimensions */
+                        /* --dimensions */
                         case 'd':
                         {
                                 if(sscanf
@@ -245,7 +211,7 @@ static NftResult _parse_args(int argc, char *argv[])
                                 break;
                         }
 
-                        /** --fps */
+                        /* --fps */
                         case 'f':
                         {
                                 if(sscanf(optarg, "%32d", (int *) &_c.fps) !=
@@ -259,7 +225,7 @@ static NftResult _parse_args(int argc, char *argv[])
                                 break;
                         }
 
-                        /** --loglevel */
+                        /* --loglevel */
                         case 'l':
                         {
                                 if(!nft_log_level_set
@@ -273,7 +239,7 @@ static NftResult _parse_args(int argc, char *argv[])
                                 break;
                         }
 
-                                /* invalid argument */
+                        /* invalid argument */
                         case '?':
                         {
                                 NFT_LOG(L_ERROR, "argument %d is invalid",
@@ -282,7 +248,7 @@ static NftResult _parse_args(int argc, char *argv[])
                                 return NFT_FAILURE;
                         }
 
-                                /* unhandled arguments */
+                        /* unhandled arguments */
                         default:
                         {
                                 NFT_LOG(L_ERROR, "argument %d is invalid",
@@ -295,6 +261,7 @@ static NftResult _parse_args(int argc, char *argv[])
 
         return NFT_SUCCESS;
 }
+
 
 /** signal handler for exiting */
 void _exit_signal_handler(int signal)

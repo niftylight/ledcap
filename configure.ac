@@ -167,11 +167,12 @@ if test x$WANT_X = xtrue && test $HAVE_X -eq 1 ; then CAPTURE="X11 $CAPTURE" ; f
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES(
 [
-	Makefile
-	src/version.c
-	src/Makefile
-	gentoo/media-gfx/ledcap/ledcap-9999.ebuild
+        Makefile
+        src/version.c
+        src/Makefile
+        gentoo/media-gfx/ledcap/ledcap-9999.ebuild
         debian/control.tmpl
+        debian/rules.tmpl
 ])
 AC_OUTPUT
 

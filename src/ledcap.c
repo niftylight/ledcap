@@ -429,7 +429,7 @@ int main(int argc, char *argv[])
                           led_pixel_format_from_string(capture_format()))))
                 goto _m_exit;
 
-        /* respect endianess */
+        /* respect endianness */
         led_frame_set_big_endian(frame, capture_is_big_endian());
 
         /* get first hardware */

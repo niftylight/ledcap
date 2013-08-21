@@ -152,7 +152,7 @@ NftResult capture_frame(LedFrame * f, LedFrameCord x, LedFrameCord y)
                 return NFT_FAILURE;
         }
 
-        /* set endianess (flag will be changed when conversion occurs) */
+        /* set endianness (flag will be changed when conversion occurs) */
         led_frame_set_big_endian(f, capture_is_big_endian());
 
         return NFT_SUCCESS;

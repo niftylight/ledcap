@@ -290,7 +290,7 @@ int main(int argc, char *argv[])
 
 
         /* check binary version compatibility */
-        if(!NFT_LED_CHECK_VERSION)
+        if(!LED_CHECK_VERSION)
                 return EXIT_FAILURE;
 
 

@@ -369,7 +369,10 @@ int main(int argc, char *argv[])
 
         /* determine width of input-frames */
         LedFrameCord width, height;
-        if((width = led_setup_get_width(setup)) > _c.width)
+		if(!led_setup_get_dim(setup, &width, &height))
+				goto _m_exit;
+		
+        if(width > _c.width)
         {
                 NFT_LOG(L_WARNING,
                         "LED-Setup width (%d) > our width (%d). Using setup-value",
@@ -379,7 +382,7 @@ int main(int argc, char *argv[])
         }
 
         /* determine height of input-frames */
-        if((height = led_setup_get_height(setup)) > _c.height)
+        if(height > _c.height)
         {
                 NFT_LOG(L_WARNING,
                         "LED-Setup height (%d) > our height (%d). Using setup-value.",

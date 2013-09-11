@@ -82,13 +82,15 @@ static NftResult _capture(LedFrame * frame, LedFrameCord x, LedFrameCord y)
         if(!frame)
                 NFT_LOG_NULL(NFT_FAILURE);
 
-
+		/* get frame dimensions */
+		LedFrameCord w, h;
+		if(!led_frame_get_dim(frame, &w, &h))
+				return NFT_FAILURE;
+		
         /* get screen-portion from X server */
         XImage *image = NULL;
         if(!(image = XGetImage(_c.display, RootWindow(_c.display, _c.screen),
-                               x, y,
-                               led_frame_get_width(frame),
-                               led_frame_get_height(frame), AllPlanes,
+                               x, y, w, h, AllPlanes,
                                ZPixmap)))
         {
                 NFT_LOG(L_ERROR, "XGetImage() failed");

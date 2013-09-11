@@ -133,9 +133,12 @@ NftResult capture_frame(LedFrame * f, LedFrameCord x, LedFrameCord y)
 {
         if(MECHANISM(_c.method)->capture)
         {
+				LedFrameCord w,h;
+				if(!led_frame_get_dim(f, &w, &h))
+						return NFT_FAILURE;
+				
                 NFT_LOG(L_VERBOSE, "Capturing image x: %d, y: %d, %dx%d",
-                        x, y, led_frame_get_width(f),
-                        led_frame_get_height(f));
+                        x, y, w, h);
 
                 if(!(MECHANISM(_c.method)->capture(f, x, y)))
                 {

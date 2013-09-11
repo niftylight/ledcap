@@ -77,27 +77,28 @@ static NftResult _capture(LedFrame * frame, LedFrameCord x, LedFrameCord y)
         if(!frame)
                 NFT_LOG_NULL(NFT_FAILURE);
 
-
+		/* get frame dimensions */
+		LedFrameCord w, h;
+		if(!led_frame_get_dim(frame, &w, &h))
+				return NFT_FAILURE;
+		
         /* get screen-portion from X server */
         XImage *image = NULL;
 
         if(!
            (image =
-            XGetImage(_c.display, _c.root, x, y, led_frame_get_width(frame),
-                      led_frame_get_height(frame), AllPlanes, ZPixmap)))
+            XGetImage(_c.display, _c.root, x, y, w, h, AllPlanes, ZPixmap)))
         {
                 NFT_LOG(L_ERROR, "Failed to capture XImage");
                 return NFT_FAILURE;
         }
-
+		
         /* convert image to 32 bit RGB */
         Imlib_Image *iimg;
 
         if(!
            (iimg =
-            imlib_create_image_from_ximage(image, NULL, 0, 0,
-                                           led_frame_get_width(frame),
-                                           led_frame_get_height(frame),
+            imlib_create_image_from_ximage(image, NULL, 0, 0, w, h,
                                            true)))
         {
                 NFT_LOG(L_ERROR, "Failed to create Imlib_Image from XImage");

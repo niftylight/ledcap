@@ -1,4 +1,16 @@
-ledcap for Debian
------------------
+ledcap (Debian package)
+=======================
 
-ledcap debian package. More information at http://wiki.niftylight.de/Ledcap
+cli tool for niftyled to capture a portion of the screen and send it to an
+LED setup.
+
+
+
+------------------------------------------------------------------------------
+
+Project page:	http://wiki.niftylight.de/ledcap  
+Sourcecode:	http://github.com/niftylight/ledcap  
+Issue tracker:	http://github.com/niftylight/ledcap/issues  
+Mailinglist:	niftyled@googlegroups.com  
+IRC chat:	irc://irc.freenode.net/niftylight   
+

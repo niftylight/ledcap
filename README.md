@@ -1,12 +1,15 @@
-Niftyled screen capture tool
-============================
+ledcap
+======
 
-cli tool to capture portion of screen and send it to an LED setup.
+cli tool for niftyled to capture a portion of the screen and send it to an
+LED setup.
 
 
+
+------------------------------------------------------------------------------
 
 Project page:	http://wiki.niftylight.de/ledcap  
-Repository:	http://github.com/niftylight/ledcap  
+Sourcecode:	http://github.com/niftylight/ledcap  
 Issue tracker:	http://github.com/niftylight/ledcap/issues  
 Mailinglist:	niftyled@googlegroups.com  
 IRC chat:	irc://irc.freenode.net/niftylight   

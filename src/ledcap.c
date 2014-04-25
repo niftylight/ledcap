@@ -1,6 +1,6 @@
 /*
  * ledmag - Display portion of screen on a LED-Setup using libniftyled
- * Copyright (C) 2006-2013 Daniel Hiepler <daniel@niftylight.de>
+ * Copyright (C) 2006-2014 Daniel Hiepler <daniel@niftylight.de>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -333,7 +333,7 @@ int main(int argc, char *argv[])
 
 
         /* print welcome msg */
-        NFT_LOG(L_INFO, "%s %s (c) D.Hiepler 2006-2013", PACKAGE_NAME,
+        NFT_LOG(L_INFO, "%s %s (c) D.Hiepler 2006-2014", PACKAGE_NAME,
                 ledcap_version_long());
         NFT_LOG(L_VERBOSE, "Loglevel: %s",
                 nft_log_level_to_string(nft_log_level_get()));

@@ -7,7 +7,7 @@ ACLOCAL_AMFLAGS = -I m4
 
 
 SUBDIRS = src
-EXTRA_DIST = gentoo debian
+EXTRA_DIST = gentoo dist
 
 # indent source & header-files
 INDENT_C_ARGS=-pmt -bl -bls -cli8 -cbi0 -bli0 -cs -fca -i8 -sc -npsl -nut -npcs \

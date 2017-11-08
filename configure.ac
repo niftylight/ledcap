@@ -172,7 +172,6 @@ AC_CONFIG_FILES(
         Makefile
         src/version.c
         src/Makefile
-        gentoo/media-gfx/ledcap/ledcap-9999.ebuild
         dist/debian/changelog
         dist/debian/control.tmpl
         dist/debian/rules.tmpl
